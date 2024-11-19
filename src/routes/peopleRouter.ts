@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getpeople } from "../controllers/peopleController";
+import { getpeople, getCharacterById } from "../controllers/peopleController";
 const peopleRouter = Router();
 
 peopleRouter.get("/", async (req, res) => {
@@ -30,6 +30,17 @@ peopleRouter.get("/", async (req, res) => {
     } catch (e) {
         res.status(500).send("Error fetching people data")
     }
+})
+
+peopleRouter.get("/:id", async (req, res) => {
+    try {
+        if (req.params) {
+            const id = req.params.id
+            const character = await getCharacterById(id)
+            res.send(character)
+        }
+    }
+    catch (e) { res.status(500).send("Error fetching character data") }
 })
 
 export default peopleRouter

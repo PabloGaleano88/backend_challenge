@@ -13,6 +13,7 @@ export async function getfilms(title: string | null, limit: number, page: number
             limit: limit,
             page: page,
             sort: sort,
+            collation: { locale: "en", strength: 1 },
             lean: true,
             populate: [{
                 path: 'characters',
@@ -35,5 +36,37 @@ export async function getfilms(title: string | null, limit: number, page: number
         return film;
     } catch (error) {
         throw error;
+    }
+}
+
+export async function getFilmByid(id: string): Promise<FilmType> {
+    try {
+        const film = await filmsModel.findById(id)
+            .populate({
+                path: 'characters',
+                model: 'peoples',
+                foreignField: 'url',
+                select: 'name -url -_id'
+            })
+            .populate({
+                path: 'planets',
+                model: 'planets',
+                foreignField: 'url',
+                select: 'name -url -_id'
+            })
+            .populate({
+                path: 'starships',
+                model: 'starships',
+                foreignField: 'url',
+                select: 'name -url -_id'
+            });
+        if (film) {
+            return film;
+        } else {
+            throw new Error(`Film with ID ${id} not found`);
+        }
+    }
+    catch (error) {
+        throw new Error(`Error fetching film`);
     }
 }

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getplanet } from "../controllers/planetsController";
+import { getplanet, getPlanetById } from "../controllers/planetsController";
 
 const planetsRouter = Router();
 
@@ -31,6 +31,17 @@ planetsRouter.get("/", async (req, res) => {
     } catch (e) {
         res.status(500).send("Error fetching planets data")
     }
+})
+
+planetsRouter.get("/:id", async (req, res) => {
+    try {
+        if (req.params) {
+            const id = req.params.id
+            const planet = await getPlanetById(id)
+            res.send(planet)
+        }
+    }
+    catch (e) { res.status(500).send("Error fetching planet data") }
 })
 
 export default planetsRouter

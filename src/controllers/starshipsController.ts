@@ -13,6 +13,7 @@ export async function getStarship(name: string | null, limit: number, page: numb
             limit: limit,
             page: page,
             sort: sort,
+            collation: { locale: "en", strength: 1 },
             lean: true,
             populate: [{
                 path: 'pilots',
@@ -30,5 +31,31 @@ export async function getStarship(name: string | null, limit: number, page: numb
     }
     catch (error) {
         throw error
+    }
+}
+
+export async function getStarshipById(id: string): Promise<StarshipType> {
+    try {
+        const starship = await starshipsModel.findById(id)
+            .populate({
+                path: 'pilots',
+                model: 'peoples',
+                foreignField: 'url',
+                select: 'name -url -_id'
+            })
+            .populate({
+                path: 'films',
+                model: 'films',
+                foreignField: 'url',
+                select: 'title -url -_id'
+            });
+        if (starship) {
+            return starship;
+        } else {
+            throw new Error(`Starship with ID ${id} not found`);
+        }
+    }
+    catch (error) {
+        throw new Error(`Error fetching starship`);
     }
 }

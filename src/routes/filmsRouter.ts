@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getfilms } from "../controllers/filmsController";
+import { getfilms, getFilmByid } from "../controllers/filmsController";
 
 const filmsRouter = Router();
 
@@ -30,6 +30,17 @@ filmsRouter.get("/", async (req, res) => {
     } catch (e) {
         res.status(500).send("Error fetching films data")
     }
+})
+
+filmsRouter.get("/:id", async (req, res) => {
+    try {
+        if (req.params) {
+            const id = req.params.id
+            const film = await getFilmByid(id)
+            res.send(film)
+        }
+    }
+    catch (e) { res.status(500).send("Error fetching film data") }
 })
 
 export default filmsRouter

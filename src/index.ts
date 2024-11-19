@@ -2,6 +2,7 @@
 import express from "express";
 import mongoose from "mongoose"
 import dotenv from 'dotenv'
+import cors from "cors"
 
 //import Routes
 import filmsRouter from "./routes/filmsRouter";
@@ -16,6 +17,13 @@ import * as uploadData from "./utils/cron";
 dotenv.config()
 
 const app = express()
+
+app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    methods: 'GET',
+    allowedHeaders: 'Content-Type,Authorization'
+}));
 
 //listening port connection
 const PORT = process.env.PORT || "8000";

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getStarship } from "../controllers/starshipsController";
+import { getStarship, getStarshipById } from "../controllers/starshipsController";
 
 const starshipsRouter = Router();
 
@@ -31,6 +31,17 @@ starshipsRouter.get("/", async (req, res) => {
     } catch (e) {
         res.status(500).send("Error fetching starships data")
     }
+})
+
+starshipsRouter.get("/:id", async (req, res) => {
+    try {
+        if (req.params) {
+            const id = req.params.id
+            const starship = await getStarshipById(id)
+            res.send(starship)
+        }
+    }
+    catch (e) { res.status(500).send("Error fetching starship data") }
 })
 
 export default starshipsRouter
