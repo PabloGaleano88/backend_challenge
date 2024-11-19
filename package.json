@@ -19,7 +19,6 @@
     "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.0",
     "@types/mocha": "^10.0.9",
-    "@types/mongoose": "^5.11.96",
     "@types/mongoose-paginate-v2": "^1.6.4",
     "@types/node": "^22.9.0",
     "@types/node-cron": "^3.0.11",
