@@ -1,9 +1,9 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import { getfilms, getFilmByid } from "../controllers/filmsController";
 
 const filmsRouter = Router();
 
-filmsRouter.get("/", async (req, res) => {
+filmsRouter.get("/", async (req: Request, res: Response) => {
     try {
         if (req.query) {
             const { limit, page, sort, title } = req.query
@@ -32,7 +32,7 @@ filmsRouter.get("/", async (req, res) => {
     }
 })
 
-filmsRouter.get("/:id", async (req, res) => {
+filmsRouter.get("/:id", async (req: Request, res: Response) => {
     try {
         if (req.params) {
             const id = req.params.id

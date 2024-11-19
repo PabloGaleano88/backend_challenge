@@ -1,8 +1,8 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import { getpeople, getCharacterById } from "../controllers/peopleController";
 const peopleRouter = Router();
 
-peopleRouter.get("/", async (req, res) => {
+peopleRouter.get("/", async (req: Request, res: Response) => {
     try {
         if (req.query) {
             const { limit, page, sort, name } = req.query
@@ -32,7 +32,7 @@ peopleRouter.get("/", async (req, res) => {
     }
 })
 
-peopleRouter.get("/:id", async (req, res) => {
+peopleRouter.get("/:id", async (req: Request, res: Response) => {
     try {
         if (req.params) {
             const id = req.params.id

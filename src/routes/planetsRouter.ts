@@ -1,9 +1,9 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import { getplanet, getPlanetById } from "../controllers/planetsController";
 
 const planetsRouter = Router();
 
-planetsRouter.get("/", async (req, res) => {
+planetsRouter.get("/", async (req: Request, res: Response) => {
     try {
         if (req.query) {
             const { limit, page, sort, name } = req.query
@@ -33,7 +33,7 @@ planetsRouter.get("/", async (req, res) => {
     }
 })
 
-planetsRouter.get("/:id", async (req, res) => {
+planetsRouter.get("/:id", async (req: Request, res: Response) => {
     try {
         if (req.params) {
             const id = req.params.id

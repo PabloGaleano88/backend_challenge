@@ -20,7 +20,7 @@ const app = express()
 
 app.use(cors());
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.URL_PORT_FRONT,
     methods: 'GET',
     allowedHeaders: 'Content-Type,Authorization'
 }));

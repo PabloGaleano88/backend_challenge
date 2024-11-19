@@ -1,9 +1,9 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import { getStarship, getStarshipById } from "../controllers/starshipsController";
 
 const starshipsRouter = Router();
 
-starshipsRouter.get("/", async (req, res) => {
+starshipsRouter.get("/", async (req: Request, res: Response) => {
     try {
         if (req.query) {
             const { limit, page, sort, name } = req.query
@@ -33,7 +33,7 @@ starshipsRouter.get("/", async (req, res) => {
     }
 })
 
-starshipsRouter.get("/:id", async (req, res) => {
+starshipsRouter.get("/:id", async (req: Request, res: Response) => {
     try {
         if (req.params) {
             const id = req.params.id
